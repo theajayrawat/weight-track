@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link'; 
 
 export default function Track() {
   const router = useRouter();
@@ -42,7 +43,6 @@ export default function Track() {
       if (res.ok) {
         alert('Weight saved!');
         setWeight(''); // Clear input
-        router.refresh(); // Optional: Refresh data if you're showing a chart on this page
       } else {
         alert('Something went wrong.');
       }
@@ -51,21 +51,29 @@ export default function Track() {
       alert('Error connecting to server.');
     } finally {
       setLoading(false);
+      router.push('/weight'); 
     }
   };
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-6">
+      <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
+         Daily Tracker
+      </h1>
+       <Link 
+            href="/weight"
+            className="w-full max-w-md mt-4 md:mt-0 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all flex items-center gap-2"
+          >
+          <span>Check Graph</span>
+      </Link> 
       <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg border border-gray-100">
         
+       
         {/* Header Section */}
         <div className="text-center mb-8">
-          <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">
-            Daily Tracker
-          </span>
-          <h1 className="text-3xl font-bold text-gray-800 mt-2">
+          <h2 className="text-2xl font-bold text-gray-800 mt-2">
             Today is <span className="text-blue-600">{displayDate}</span>
-          </h1>
+          </h2>
         </div>
 
         {/* Input Form */}

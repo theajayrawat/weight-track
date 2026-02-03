@@ -11,7 +11,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const WeightChart = ({ data }) => {
+const HourChart = ({ data }) => {
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
     return new Intl.DateTimeFormat('en-US', { 
@@ -33,14 +33,14 @@ const WeightChart = ({ data }) => {
             dataKey="date" 
             tickFormatter={formatDate}
             stroke="#888888"
-            interval="preserveStartEnd" 
+            interval="preserveStartEnd"
             tick={{ fontSize: 12 }}
           />
           
           <YAxis 
             type="number" 
             domain={['dataMin - 2', 'dataMax + 2']} 
-            unit="kg" 
+            unit="hour" 
             stroke="#888888"
             tick={{ fontSize: 12 }}
           />
@@ -49,11 +49,11 @@ const WeightChart = ({ data }) => {
             cursor={{ strokeDasharray: '3 3' }}
             contentStyle={{ backgroundColor: '#fff', borderRadius: '8px', border: '1px solid #e5e7eb' }}
             labelFormatter={(label) => formatDate(label)}
-            formatter={(value) => [`${value} kg`, 'Weight']}
+            formatter={(value) => [`${value} hour`, 'Hour']}
           />
           
           <Line 
-            dataKey="weight" 
+            dataKey="hour" 
             type="monotone" 
             stroke="#3b82f6" 
             strokeWidth={3} 
@@ -66,4 +66,4 @@ const WeightChart = ({ data }) => {
   );
 };
 
-export default WeightChart;
+export default HourChart;

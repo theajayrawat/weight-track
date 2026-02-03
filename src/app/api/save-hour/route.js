@@ -1,23 +1,23 @@
 import { NextResponse } from 'next/server';
-import Weight from "@/app/lib/models/Weight";
+import Hour from "@/app/lib/models/Hours";
 import { CONNECT_DB } from '@/app/lib/db';
 
 export async function POST(request) {
   try {
     await CONNECT_DB();
     const body = await request.json();
-    const { date, weight } = body;
+    const { date, hour } = body;
 
-    if (!weight || !date) {
+    if (!hour || !date) {
       return NextResponse.json({ error: 'Missing data' }, { status: 400 });
     }
 
     const entryDate = new Date(date);
     entryDate.setHours(0, 0, 0, 0);
 
-    const savedData = await Weight.findOneAndUpdate(
+    const savedData = await Hour.findOneAndUpdate(
       { date: entryDate }, 
-      { weight: weight },
+      { hour: hour },
       { upsert: true, new: true }
     );
     
@@ -32,7 +32,7 @@ export async function POST(request) {
 export async function GET() {
   try {
     await CONNECT_DB();
-    const data = await Weight.find().sort({ date: 1 });
+    const data = await Hour.find().sort({ date: 1 });
     return NextResponse.json({ success: true, data: data });
 
   } catch (error) {
