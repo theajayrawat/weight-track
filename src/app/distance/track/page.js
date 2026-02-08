@@ -6,9 +6,9 @@ import Link from 'next/link';
 
 export default function Track() {
   const router = useRouter();
-  const [dsahour, setDsahour] = useState('');
-  const [devhour, setDevhour] = useState('');
+  const [distance, setDistance] = useState('');
   const [displayDate, setDisplayDate] = useState('');
+  const [time, setTime] = useState('');
   const [loading, setLoading] = useState(false);
 
   // 1. Get "Today's" date on component mount
@@ -28,24 +28,24 @@ export default function Track() {
     setLoading(true);
 
     try {
-      // 2. Prepare the data (Current ISO date + hour)
+      // 2. Prepare the data (Current ISO date + distance)
       const payload = {
         date: new Date().toISOString(), // Save full date for sorting later
-        dsaHour: parseFloat(dsahour),
-        devHour: parseFloat(devhour),
+        distance: parseFloat(distance),
+        time: parseFloat(time),
       };
 
       // 3. Send to your API
-      const res = await fetch('/api/save-hour', {
+      const res = await fetch('/api/save-distance', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
 
       if (res.ok) {
-        alert('Hour saved!');
-        setDsahour(''); // Clear input
-        setDevhour(''); // Clear input
+        alert('distance saved!');
+        setDistance(''); // Clear input
+        setTime(''); // Clear input
       } else {
         alert('Something went wrong.');
       }
@@ -54,7 +54,7 @@ export default function Track() {
       alert('Error connecting to server.');
     } finally {
       setLoading(false);
-      router.push('/hour'); 
+      router.push('/distance'); 
     }
   };
 
@@ -63,14 +63,15 @@ export default function Track() {
       <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">
          Daily Tracker
       </h1>
-      <Link 
-            href="/hour"
+       <Link 
+            href="/distance"
             className="w-full max-w-md mt-4 md:mt-0 px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow-md transition-all flex items-center gap-2"
           >
           <span>Check Graph</span>
       </Link> 
       <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg border border-gray-100">
         
+       
         {/* Header Section */}
         <div className="text-center mb-8">
           <h2 className="text-2xl font-bold text-gray-800 mt-2">
@@ -82,29 +83,30 @@ export default function Track() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Total hour (hr)
+              Distance (km)
             </label>
             <input
               type="number"
               step="0.1"
               required
-              value={dsahour}
-              onChange={(e) => setDsahour(e.target.value)}
-              placeholder="e.g., 4.5"
+              value={distance}
+              onChange={(e) => setDistance(e.target.value)}
+              placeholder="e.g., 2.5"
               className="w-full p-4 text-xl border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-black"
             />
           </div>
-            <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Total hour (hr)
+
+          <div>
+           <label className="block text-sm font-medium text-gray-700 mb-2">
+              Time (min)
             </label>
             <input
               type="number"
               step="0.1"
               required
-              value={devhour}
-              onChange={(e) => setDevhour(e.target.value)}
-              placeholder="e.g., 4.5"
+              value={time}
+              onChange={(e) => setTime(e.target.value)}
+              placeholder="e.g., 15"
               className="w-full p-4 text-xl border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition text-black"
             />
           </div>
