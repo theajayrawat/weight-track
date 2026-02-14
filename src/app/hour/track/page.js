@@ -82,7 +82,7 @@ export default function Track() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Total hour (hr)
+              DSA hour (hr)
             </label>
             <input
               type="number"
@@ -96,7 +96,7 @@ export default function Track() {
           </div>
             <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Total hour (hr)
+              Dev hour (hr)
             </label>
             <input
               type="number"
