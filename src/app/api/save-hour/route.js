@@ -8,9 +8,9 @@ export async function POST(request) {
     const body = await request.json();
     const { date, dsaHour, devHour } = body;
 
-    if (!devHour || !dsaHour || !date) {
-      return NextResponse.json({ error: 'Missing data' }, { status: 400 });
-    }
+  if (typeof devHour !== 'number' || typeof dsaHour !== 'number' || !date) {
+    return NextResponse.json({ error: 'Invalid or missing data' }, { status: 400 });
+  }
 
     const entryDate = new Date(date);
     entryDate.setHours(0, 0, 0, 0);
