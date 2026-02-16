@@ -8,8 +8,8 @@ export async function POST(request) {
     const body = await request.json();
     const { date, distance, time } = body;
 
-    if (!distance || !date || !time) {
-      return NextResponse.json({ error: 'Missing data' }, { status: 400 });
+    if (typeof distance !== 'number' || typeof time !== 'number' || !date) {
+        return NextResponse.json({ error: 'Invalid or missing data' }, { status: 400 });
     }
 
     const entryDate = new Date(date);
