@@ -17,8 +17,8 @@ export async function CONNECT_DB() {
     }
 
     try {
-        const { Password } = process.env;       
-        const MONGODB_URI = "mongodb://theajayrawat:" + Password + "@ac-wlalrjt-shard-00-00.uivvy1k.mongodb.net:27017,ac-wlalrjt-shard-00-01.uivvy1k.mongodb.net:27017,ac-wlalrjt-shard-00-02.uivvy1k.mongodb.net:27017/weight-tract-db?replicaSet=atlas-5j1j3l-shard-0&ssl=true&authSource=admin";
+        const { PASSWORD } = process.env;       
+        const MONGODB_URI = "mongodb://theajayrawat:" + PASSWORD + "@ac-wlalrjt-shard-00-00.uivvy1k.mongodb.net:27017,ac-wlalrjt-shard-00-01.uivvy1k.mongodb.net:27017,ac-wlalrjt-shard-00-02.uivvy1k.mongodb.net:27017/weight-tract-db?replicaSet=atlas-5j1j3l-shard-0&ssl=true&authSource=admin";
         
         // 3. Connect
         await mongoose.connect(MONGODB_URI);
